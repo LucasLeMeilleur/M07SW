@@ -1,0 +1,149 @@
+section {
+  border-left: 10px solid #F0F0F0;
+  margin : 20px;
+}
+
+/* L'entête du CV  dans une div */
+.entete_cv {
+  background-color: #F0F0F0;
+  padding: 10px;
+  color: black;
+}
+
+.entete_cv img {
+  float: right;
+  width: 50px;
+}
+
+
+.entete_cv #lecteur_video {
+  float: right;
+  width: 100px;
+  height: auto;
+  background-color: white;
+  border: 1px solid grey;
+}
+
+.entete_cv #controleur_video {
+  float: right;
+  width: 50px;
+  height: 200px;
+}
+
+.entete_cv .control_input {
+  width: 18px;
+  height: 18px;
+  background-color: none;
+  margin: 2px;
+}
+
+.entete_cv .control_input:hover {
+  width: 22px;
+  height: 22px;
+  background-color: none;
+  margin: 0px;
+}
+
+
+.entete_cv h1 {
+  margin: 10px;
+  padding: 0px;
+  font-size: 1.5em;
+}
+
+.entete_cv h2 {
+  margin: 10px;
+  padding: 0px;
+  color: #2874a6;
+  font-size: 1.4em;
+}
+
+.entete_cv .coord {
+  margin-right: 50px;
+  margin-left: 10px;
+  font-size: 0.8em;
+}
+
+/* Le corps du CV */
+
+.corps_cv p {
+  margin: 0.5em 2em;
+  font-size: 0.9em;
+}
+
+.corps_cv h1 {
+  background-color: #F0F0F0;
+  padding: 5px 0px 5px 20px;
+  font-size: 1.3em;
+  color: #2874a6;
+  /*text-transform: uppercase;*/
+  font-variant: small-caps;
+}
+
+/* Le tableau des compétences */
+.corps_cv table#competences{
+  border-collapse: collapse;
+  border: none;
+  margin: 20px 0px;
+  padding:20px;
+  width:100%;
+}
+
+.corps_cv table#competences th {
+  padding:2px 5px 2px 5px;
+  color : #2874a6;
+  font-size: 1em;
+}
+
+.corps_cv table#competences td {
+  padding:2px 5px 2px 5px;
+  font-size: 0.9em;
+}
+
+/* Des classes à appliquer sur les cellules du tableau*/
+.bordure_droite{
+  border-right: 1px solid #A0A0A0;
+}
+
+.centrage{
+  text-align: center;
+}
+
+.corps_cv .bordure_bas{
+  border-bottom: 1px solid #A0A0A0;
+}
+
+span.orange {
+  /*background-color: #FF4500;*/
+  color: #FF4500;
+  font-weight: bold;
+  padding: 0px 2px;
+  margin-left: 1px;
+}
+
+span.bleu {
+  /*background-color: #FF4500;*/
+  color: #3683ff;
+  font-weight: bold;
+  padding: 0px 2px;
+  margin-left: 1px;
+}
+
+span.jaune {
+  /*background-color: #FF4500;*/
+  color: #e6d840;
+  font-weight: bold;
+  padding: 0px 2px;
+  margin-left: 1px;
+}
+
+span.contour_bleu {
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: -1px 0 #3683ff, 0 1px #3683ff, 1px 0 #3683ff, 0 -1px #3683ff;
+}
+
+/* Le tableau des formations */
+table#formations td {
+  padding: 5px 20px;
+}

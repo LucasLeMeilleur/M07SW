@@ -1,0 +1,96 @@
+body {
+	padding:0;
+	margin:0;
+}
+
+/* Les styles des formulaires */
+
+form {
+    padding-left: 50px;
+}
+
+label, input, button {
+    display: block;
+    font-size: 1em;
+    width: 400px;
+}
+input {
+    padding: 8px 16px;
+    margin: 3px 0;
+    box-sizing: border-box;
+		text-align:center;
+}
+input[type=number]{
+	-moz-appearance: textfield;
+    appearance: textfield;
+}
+input[readonly] {
+  background-color: #c4c4c4;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+
+}
+
+.rouge {
+	color: red;
+}
+
+.vert {
+	color: green;
+}
+
+.compteur {
+	display: inline-block;
+	padding: 10px;
+	margin-right: 20px;
+	margin-top: 20px;
+	width: 70px;
+	height: 50px;
+	border-radius: 15px;
+	background-color: #404040;
+	color: white;
+	font-weight: bold;
+	font-size: 2em;
+	text-align: center;
+}
+
+header #dark_light{display:inline;width:30px;height: 30px;margin: 23px 10px;position:absolute;}
+
+
+.centrer{text-align:center;}
+
+.statistique{
+	float:left;
+	width:280px;
+	background-color:var(--n-bg-color);
+	margin:1% 5%;
+	color:black;
+	border-radius:3px;
+	height: 100px;
+}
+@media screen and (orientation: portrait) {
+	.statistique{
+		width:90%;
+	}
+}
+.statistique a{text-decoration: none;}
+.statistique a:visited{color:black;}
+.statistique_titre{font-size:1.3em;background-color:white;font-style: italic;font-weight:bold;}
+.statistique_icone{width:100px;height:100px; float:left;margin: 0;}
+.statistique_icone img{width:100px;/*! margin-left:22px; */margin-top: 0;}
+.statistique_valeur{
+	width: 100%;
+	font-size: 4em;
+	font-style: italic;
+	font-weight: bold;
+	margin: 0px;
+	text-align: center;
+	line-height: 100px;
+	height: 100px;
+	color: var(--hf-text-color);}
+.tableau_statistique{width:100%;}
+.tableau_statistique input{width:100%;}

@@ -1,0 +1,49 @@
+body {
+
+	display: grid;
+	grid-template-columns: 1fr 25%; /* 1fr : 1 fraction de l'espace restant */
+	grid-template-rows:	80px auto minmax(400px, auto) 60px;
+	grid-template-areas: 	"h h"
+							"n n"
+							"s a"
+							"f f";
+/*	grid-column-gap: 1px;
+	grid-row-gap: 1px;*/
+}
+
+/* A coder à partir d'indices */
+header {
+	grid-area: h;
+}
+
+nav {
+	grid-area: n;
+}
+
+footer {
+	grid-area: f;
+}
+
+aside {
+	grid-area: a;
+}
+
+section {
+	grid-area: s;
+}
+
+
+/* Responsive: pour les écrans dont la largeur est inférieure à 800 px */
+@media (max-width: 800px) {
+  body {
+	grid-template-columns: 100%;
+	grid-template-rows:	80px minmax(400px, auto) 60px;
+	grid-template-areas: 	"h"
+												"s"
+												"f";
+  }
+  aside{
+	  display: none;
+  }
+
+}

@@ -1,0 +1,51 @@
+
+form {
+    margin:auto;
+    padding-left: 50px;
+}
+
+label, input, button {
+    display: block;
+    font-size: 1em;
+    width: 400px;
+    background-color:var(--sa-bg-color);
+    color:var(--sa-text-color);
+}
+input {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* Les couleurs dans des classes */
+.fond_bleu {
+    background-color:var(--n-bg-color);
+}
+
+.fond_bleu_clair {
+	background-color: #ebf5fb;
+}
+
+.fond_orange {
+    background-color: #CC5500;
+}
+
+.police_blanche {
+    color: white;
+}
+
+.rouge {
+	color: red;
+}
+
+.vert {
+	color: green;
+}
