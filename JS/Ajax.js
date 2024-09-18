@@ -5,7 +5,6 @@ document.getElementById('nav_connexion').addEventListener('click', connexion);
     
 
 function suiviAjax() {
-    console.debug("main Drone ");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -13,13 +12,7 @@ function suiviAjax() {
             var pagehtml = document.createElement('html');
             pagehtml.innerHTML = reponse;
             document.getElementsByTagName("section")[0].innerHTML = pagehtml.innerHTML;
-
-
             recupererNombreDrone();recupererNombreVol();recupererNombreUtilisateur();
-
-            
-            
-            
         }
     };
     xhttp.open("GET", "mainDrone.php", true);
@@ -32,10 +25,8 @@ function recupererNombreDrone(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            var reponse = xhttp.responseText;
-            
-            document.getElementById('txt_Drone').innerHTML = reponse;
-            
+            var reponse = xhttp.responseText;            
+            document.getElementById('txt_Drone').innerHTML = reponse;            
             document.getElementById("stat_drone").addEventListener('click', function(){AfficherTableau("nbdrone");});
         }
     };
@@ -68,22 +59,19 @@ function recupererNombreUtilisateur(){
             
         }
     };
-    xhttp.open("GET", "rest.php/nbutilisateur", true);
+    xhttp.open("GET", "rest.php/nbuser", true);
     xhttp.send();
 }
 
 
 function inscription() {
 
-    console.debug("main Inscription ");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var reponse = xhttp.responseText;
-            console.debug(reponse);
             var pagehtml = document.createElement( 'html' );
             pagehtml.innerHTML = reponse;
-            console.debug(section.innerHTML);
             document.getElementsByTagName("section")[0].innerHTML = pagehtml.innerHTML;
             document.getElementsByTagName("section")[0].id= "section" ;
         }
@@ -94,15 +82,12 @@ function inscription() {
 
 function connexion() {
 
-    console.debug("main Inscription ");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var reponse = xhttp.responseText;
-            console.debug(reponse);
             var pagehtml = document.createElement( 'html' );
             pagehtml.innerHTML = reponse;
-            console.debug(section.innerHTML);
             document.getElementsByTagName("section")[0].innerHTML = pagehtml.innerHTML;
             document.getElementsByTagName("section")[0].id= "section" ;
         }
@@ -117,7 +102,6 @@ function AfficherTableau(ValeurVoulu){
     document.getElementsByTagName("section")[0].innerHTML = '';
 
     var URL = "rest.php/"+ValeurVoulu+"/Stat";
-    console.log(URL);
     
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -126,12 +110,12 @@ function AfficherTableau(ValeurVoulu){
             const reponse =  JSON.parse(xhttp.responseText);
             var Taille = reponse.length;
             var NombreElement = Object.keys(reponse[0]).length;
-            var element = Object.keys(reponse[0]);
-            
+            var element = Object.keys(reponse[0]);            
             var Tableau =  document.createElement('TABLE');
+            Tableau.setAttribute('id', "tableauTruc");
+
 
             //Ajout en tete tableau
-
             let TableRowHead =  document.createElement("tr");
             for (let i = 0; i < NombreElement; i++){
                 let TeteTab =  document.createElement("th");
@@ -146,18 +130,172 @@ function AfficherTableau(ValeurVoulu){
             for (let i = 0; i < Taille; i++) {
                 let TableRow =  document.createElement("tr");
                 for (let k = 0; k < NombreElement; k++) {
-                    
+                    let InputText = document.createElement('input');
+
+                    InputText.setAttribute('type','text');
+                    InputText.setAttribute('value',reponse[i][element[k]]);
+                    InputText.setAttribute('class','inputTruc');
+
                     let DataTab =  document.createElement("td");
-                    DataTab.innerHTML = reponse[i][element[k]];
+                    if(element[k] == "iddrone" || element[k] == "idvol" || element[k] == "idutilisateur") InputText.disabled = true;      
+                    DataTab.append(InputText);
                     TableRow.appendChild(DataTab);
-                    
                 }
+
+                // Boutton mettre a jour
+                let InputButton = document.createElement('input');            
+                InputButton.setAttribute('type','button'); 
+                InputButton.setAttribute('class','inputTruc'); 
+                InputButton.setAttribute('value', "Mettre a jour");
+                InputButton.setAttribute('onClick', `Update(${reponse[i][element[0]]},${JSON.stringify(reponse)})`);
+                InputButton.setAttribute('id',reponse[i][element[0]]);
+                TableRow.appendChild(InputButton);
+
+                
+                
+                //Boutton input graphe
+                if(element[0] == "idvol"){
+                    let InputButtonGraphe = document.createElement('input');                
+                    InputButtonGraphe.setAttribute('type','button'); 
+                    InputButtonGraphe.setAttribute('class','graphe'); 
+                    InputButtonGraphe.setAttribute('value', "Graphe");
+                    InputButtonGraphe.setAttribute('data-idvol', reponse[i][element[0]] );
+                    
+                    
+                    TableRow.appendChild(InputButtonGraphe);
+
+
+
+                }
+
                 Tableau.appendChild(TableRow)
             }
             document.getElementsByTagName("section")[0].appendChild(Tableau);
-    }
+            var graphButton = document.getElementsByClassName("graphe");
+            for (let i = 0; i < graphButton.length; i++) {
+                graphButton[i].addEventListener('click', ajaxGraph);
+                
+            }
+        }
     };
     xhttp.open("GET", URL, true);
     xhttp.send();
 
+}
+
+function Update(Id, TableauJSON){
+
+    const table = document.getElementById('tableauTruc');
+    var TypeInfo = table.getElementsByTagName('tr')[0].cells[0].innerHTML.substring(2);
+    const NbColonne = table.getElementsByTagName('tr')[0].cells.length;
+    const Taille = table.getElementsByTagName('tr').length - 1;
+    const ligne = table.getElementsByTagName('tr')[1].cells[0].getElementsByTagName('input').item(0).value;
+    var IndexTab;
+
+    for (let i = 1; i < Taille; i++) {
+        if((table.getElementsByTagName('tr')[i].cells[0].getElementsByTagName('input').item(0).value) == Id){ 
+            IndexTab = i;
+            break; 
+        }
+    }
+
+    TableauF = [];
+    for (let i = 0; i < NbColonne; i++) {
+        TableauF.push(table.getElementsByTagName('tr')[IndexTab].cells[i].getElementsByTagName('input').item(0).value);
+    }
+    TableauF.shift();
+    TableauF.push(Id);
+    var TextePostFin = TableauF.join("_")
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+    };
+    xhttp.open("POST", `rest.php/${TypeInfo}/${TextePostFin}`, true);
+    xhttp.send();
+}
+
+function Graph(x,y) {
+    const ctx = document.getElementById('monGraphe');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: x,
+                datasets: [{
+                label: 'km/h',
+                data: y,
+                borderWidth: 1
+                }]
+            },
+        });
+        }
+
+
+
+
+function ajaxGraph() {
+
+    var idvol =this.getAttribute('data-idvol')   
+    
+    document.getElementsByTagName("section")[0].innerHTML = "";
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var reponse = xhttp.responseText;
+                       
+            var pagehtml = document.createElement( 'html' );
+            pagehtml.innerHTML = reponse;
+            document.getElementsByTagName("section")[0].innerHTML = pagehtml.innerHTML;
+            document.getElementsByTagName("section")[0].id= "section" ;
+
+            ReqChart(idvol);
+
+
+
+        }
+    };
+    xhttp.open("GET", "testGraph.html", true);
+    xhttp.send();
+
+
+
+
+    
+
+
+
+}
+
+function ReqChart(idvol){
+
+
+    var lettre = "h";
+    var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var reponse = JSON.parse(xhttp.responseText);
+                var TabH = [];var TabIdEtat = [];
+                for (let i = 0; i < Object.values(reponse).length; i++){
+                    TabH[i] = Object.values(reponse[i])[0];
+                }    
+
+                for (let i = 0; i < Object.values(reponse).length; i++){
+                    TabIdEtat[i] = reponse[i].idetat;
+                }    
+                console.log(TabIdEtat);
+                
+
+                var x=[];var y=[];
+                for(let i = 0; i < TabH.length; i++){
+                    x[i]=TabIdEtat[i];
+                    y[i]=TabH[i];
+                }           
+                Graph(x,y);
+            }
+        };
+        xhttp.open("GET", "rest.php/graphe/"+idvol+"/"+lettre+",idetat", true);
+        xhttp.send();
+
+        
 }

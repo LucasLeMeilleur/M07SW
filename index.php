@@ -16,7 +16,7 @@
 
 
   </head>
-
+ 
   <body>
     <header>
 
@@ -60,5 +60,8 @@
     <script src="JS/dark_light.js"></script>
     <script src="JS/navigation.js"></script>
     <script src="JS/Ajax.js" defer></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+    <script src="JS/graph.js"></script>
   </body>
 </html>

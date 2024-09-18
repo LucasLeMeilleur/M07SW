@@ -94,3 +94,8 @@ header #dark_light{display:inline;width:30px;height: 30px;margin: 23px 10px;posi
 	color: var(--hf-text-color);}
 .tableau_statistique{width:100%;}
 .tableau_statistique input{width:100%;}
+
+
+input {
+	width: 250px;
+} 
