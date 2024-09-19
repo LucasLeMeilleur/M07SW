@@ -217,37 +217,69 @@ function Update(Id, TableauJSON){
 
 function Graph(x,y) {
     const ctx = document.getElementById('monGraphe');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: x,
-                datasets: [{
-                label: 'km/h',
-                data: y,
-                borderWidth: 1
-                }]
-            },
-        });
-        }
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: x,
+            datasets: [{
+            label: 'km/h',
+            data: y,
+            borderWidth: 1
+            }]
+        },
+    });
+}
 
 
+
+        var idVolButt;
 
 
 function ajaxGraph() {
 
+
     var idvol =this.getAttribute('data-idvol')   
-    
-    document.getElementsByTagName("section")[0].innerHTML = "";
+    idVolButt = idVolButt;
+
+    var ValueCoche = [];
+
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var reponse = xhttp.responseText;
-                       
-            var pagehtml = document.createElement( 'html' );
-            pagehtml.innerHTML = reponse;
-            document.getElementsByTagName("section")[0].innerHTML = pagehtml.innerHTML;
-            document.getElementsByTagName("section")[0].id= "section" ;
+            
+            
+            
+
+
+           
+            
+
+            if(document.getElementsByClassName('choix_graphe').length>0){
+                choixgraphe=document.getElementsByClassName('choix_graphe')
+                for(let j=0;j<choixgraphe.length;j++){
+                  if(choixgraphe[j].checked) {
+                    console.log(choixgraphe[j].value);
+                    ValueCoche.push(choixgraphe[j].value);
+                }
+                
+            }}
+                
+            console.log(ValueCoche);
+            
+            document.getElementById('section').innerHTML = reponse;
+          //  if(document.getElementsByTagName('input')) console.log(document.getElementsByTagName('input')[0]);
+
+;
+            document.getElementById('MenuGraphe').setAttribute('data-idvol',idvol);
+            document.getElementById("MenuGraphe").addEventListener('click',ajaxGraph);
+
+
+
+
+
+
 
             ReqChart(idvol);
 
@@ -257,14 +289,6 @@ function ajaxGraph() {
     };
     xhttp.open("GET", "testGraph.html", true);
     xhttp.send();
-
-
-
-
-    
-
-
-
 }
 
 function ReqChart(idvol){
@@ -275,15 +299,19 @@ function ReqChart(idvol){
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var reponse = JSON.parse(xhttp.responseText);
+
+               // console.log('Reponde : '+reponse);
+                
+
                 var TabH = [];var TabIdEtat = [];
                 for (let i = 0; i < Object.values(reponse).length; i++){
-                    TabH[i] = Object.values(reponse[i])[0];
+                    TabH[i] = reponse[i].idetat;
                 }    
 
                 for (let i = 0; i < Object.values(reponse).length; i++){
                     TabIdEtat[i] = reponse[i].idetat;
                 }    
-                console.log(TabIdEtat);
+                //console.log("Tab idetat"+ TabIdEtat);
                 
 
                 var x=[];var y=[];

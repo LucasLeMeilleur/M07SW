@@ -167,7 +167,7 @@
             if($cheminURL_tableau[1] == "nbvol"){
                 if(isset($cheminURL_tableau[2])){
                     if($cheminURL_tableau[2] == "Stat"){
-                        $req = "SELECT * FROM vol;";
+                        $req = "SELECT * FROM vol order by idvol desc";
                         $res=$BDD->prepare($req, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
                         $res->execute(NULL); 
                         $rep = $res->fetchAll(PDO::FETCH_ASSOC);

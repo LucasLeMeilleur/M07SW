@@ -99,3 +99,21 @@ header #dark_light{display:inline;width:30px;height: 30px;margin: 23px 10px;posi
 input {
 	width: 250px;
 } 
+
+
+#div-input {
+	
+	display: flex;
+	width: 100%;
+
+}
+
+section{
+	margin: 0;
+	padding: 0;
+}
+
+
+.p_graphe{
+	width: 120px;
+}
