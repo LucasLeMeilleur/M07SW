@@ -96,9 +96,9 @@ header #dark_light{display:inline;width:30px;height: 30px;margin: 23px 10px;posi
 .tableau_statistique input{width:100%;}
 
 
-input {
-	width: 250px;
-} 
+section{
+	width: 100%;
+}
 
 
 #div-input {
@@ -116,4 +116,9 @@ section{
 
 .p_graphe{
 	width: 120px;
+}
+
+
+input.checkbox_graphe{
+	width: 30px;
 }

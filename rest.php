@@ -208,9 +208,17 @@
                 $infoEtat = $cheminURL_tableau[3];
 
                 if (isset($cheminURL_tableau[3])) {
-                    
+
+                    $array = "";
+
+                    for ($i=3; $i < count($cheminURL_tableau) ; $i++) { 
+                        $array = $array.$cheminURL_tableau[$i].",";
+                    }
+
+                    $array = substr($array,0,-1);
+
             
-                    $req = "SELECT ".$cheminURL_tableau[3]." FROM etat where idvol=?;";
+                    $req = "SELECT ".$array." FROM etat where idvol=?;";
                     $res=$BDD->prepare($req, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
                     $tab = array($idVolRecup);
                     $res->execute($tab); 

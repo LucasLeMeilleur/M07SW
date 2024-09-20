@@ -34,10 +34,18 @@
       <div></div>
     </nav>
 
+
+
+    
+
     <section id="section">
       
     </section>
 	
+
+
+
+
   <footer id="mon_footer">
     <div>
         <h1>Les drones :</h1>
